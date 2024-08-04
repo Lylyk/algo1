@@ -1,0 +1,51 @@
+ALGORITHME analyser_phrase
+VAR
+    phrase: CHAINE
+    longueur, mots, voyelles: ENTIER
+    dans_mot: BOOLEEN
+    i: ENTIER
+    ensemble_voyelles: ENSEMBLE DE CARACTERES
+DEBUT
+    // Initialiser les variables
+    longueur := 0
+    mots := 0
+    voyelles := 0
+    dans_mot := FAUX
+    ensemble_voyelles := {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'}
+    
+    // Lire la phrase
+    LIRE(phrase)
+    
+    // Parcourir chaque caractère de la phrase
+    POUR i DE 1 A LONGUEUR(phrase) FAIRE
+        SI phrase[i] = '.' ALORS
+            // Fin de la phrase
+            SORTIR
+        FINSI
+        
+        longueur := longueur + 1
+        
+        SI phrase[i] DANS ensemble_voyelles ALORS
+            voyelles := voyelles + 1
+        FINSI
+        
+        SI phrase[i] = ' ' ALORS
+            SI dans_mot = VRAI ALORS
+                mots := mots + 1
+                dans_mot := FAUX
+            FINSI
+        SINON
+            dans_mot := VRAI
+        FINSI
+    FINPOUR
+    
+    // Si nous terminons avec un mot et non un espace, incrémenter le compteur de mots
+    SI dans_mot = VRAI ALORS
+        mots := mots + 1
+    FINSI
+    
+    // Afficher les résultats
+    ECRIRE("Longueur de la phrase: ", longueur)
+    ECRIRE("Nombre de mots dans la phrase: ", mots)
+    ECRIRE("Nombre de voyelles dans la phrase: ", voyelles)
+FIN
